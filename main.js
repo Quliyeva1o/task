@@ -1,22 +1,24 @@
 // Human function constructor yaradin - (name, surname, age, isMale - default true) olmalidir
 // Human function constructor-da getFullName() methods olmalidir ve result olaraq: meselen John Doe-dirse, D.JOHN return etmelidir.
 
-// class human {
-//     constructor(name, surname, age, ismale = true) {
-//         this.name = name;
-//         this.surname = surname;
-//         this.age = age;
-//         this.ismale = ismale;
-//     }
+class human {
+    constructor(name, surname, age, ismale = true) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.ismale = ismale;
+          this.getFullName = function(){
+        const sur = this.surname.charAt(0).toUpperCase();
+        const name = this.name.toUpperCase();
+        return `${sur}.${name}`;
 
-//     getFullName() {
-//         const sur = this.surname.charAt(0).toUpperCase();
-//         const name = this.name.toUpperCase();
-//         return `${sur}.${name}`;
-//     }
-// }
-// const john = new human("John", "Doe", 30);
-// console.log(john.getFullName()); 
+    }
+    }
+
+
+}
+const john = new human("John", "Doe", 30);
+console.log(john.getFullName());
 
 
 
@@ -30,18 +32,19 @@ class employee {
         this.department = department;
         this.experienceYear = experienceYear;
         this.salary = salary;
-    }
-
-    generateID() {
+        this.generateID=function(){
         let initials = this.department.substring(0, 2).toUpperCase();
         let randomNum = Math.floor(1000 + Math.random() * 9000);
         return initials + randomNum;
     }
+    }
+
+   
 }
 
 
 let programming = new employee("programming", 5, 60000);
-// console.log(programming.generateID()); 
+console.log(programming.generateID());
 
 
 
@@ -58,9 +61,42 @@ let it = new employee("IT", 8, 80000);
 let management = new employee("management", 10, 90000);
 let hr = new employee("HR", 6, 60000);
 
+const nigar = new human("Nigar", "Doe", 30);
+const aydan = new human("Aydan", "melikova", 30);
+const fidan = new human("Fidan", "nezirova", 30);
+const rena = new human("Rena", "Quliyeva", 30);
 
-Object.setPrototypeOf(programming, employee.prototype);
-Object.setPrototypeOf(design, employee.prototype);
-Object.setPrototypeOf(it, employee.prototype);
-Object.setPrototypeOf(management, employee.prototype);
-Object.setPrototypeOf(hr, employee.prototype);
+
+Object.setPrototypeOf(nigar, design);
+Object.setPrototypeOf(aydan, management);
+Object.setPrototypeOf(rena, it);
+Object.setPrototypeOf(fidan, hr);
+
+let employers = [nigar, rena, aydan, fidan]
+// console.log(employers)
+let searchEmployee = function (employers) {
+    let newarr = [];
+    for (i = 0; i < employers.length; i++) {
+        if (employers[i].experienceYear > 5 && employers[i].age > 20 && employers[i].age < 35) {
+            if (employers[i].department == "IT" || employers[i].department == "Design") {
+                newarr.push(
+
+                    {
+                        fullName:employers[i].getFullName(),
+                        salary: employers[i].salary,
+                        department: employers[i].department,
+                        age: employers[i].age,
+                        id: employers[i].generateID(),
+
+
+
+                    }
+                )
+            }
+        }
+    }
+console.log(newarr)
+
+}
+
+searchEmployee(employers)
